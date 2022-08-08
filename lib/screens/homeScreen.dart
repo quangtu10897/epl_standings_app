@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:bloc2/blocs/details_data/details_data_bloc.dart';
 import 'package:bloc2/blocs/load_data/load_data_bloc.dart';
+import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,68 +13,108 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String dropdownValue = '2021';
-  late LoadDataBloc loadDataBloc;
-  late DetailsDataBloc detailsDataBloc;
-  late SharedPreferences prefs;
-  final _key = 'season';
+  //late LoadDataBloc loadDataBloc;
+  //late DetailsDataBloc detailsDataBloc;
+
   @override
   void initState() {
     super.initState();
-   
-    loadDataBloc = context.read<LoadDataBloc>()
-      ..add(LoadedData(season: dropdownValue, searchKeyword: ''));
-    detailsDataBloc = context.read<DetailsDataBloc>();
-  }
 
-   
+    /*loadDataBloc = */ context.read<LoadDataBloc>()
+      ..add(LoadedData(
+          season: context.read<SeasonCubit>().state, searchKeyword: ''));
+    /*detailsDataBloc = */ //context.read<DetailsDataBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Standings'),
+        title: Text(tr('English Premier League Standing')),
         backgroundColor: Colors.blue[700],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             flex: 1,
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              elevation: 0,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                  context.read<LoadDataBloc>().add(
-                      LoadedData(season: dropdownValue, searchKeyword: ''));
-                });
-                
+            child: BlocBuilder<LoadDataBloc, LoadDataState>(
+              builder: (context, state) {
+                if (state is DataLoaded) {
+                  return DropdownButton<String>(
+                    value: state.season,
+                    elevation: 0,
+                    style: const TextStyle(color: Colors.deepPurple),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                    onChanged: (String? newValue) {
+                      context.read<SeasonCubit>().emit(newValue!);
+                      context
+                          .read<LoadDataBloc>()
+                          .add(LoadedData(season: newValue, searchKeyword: ''));
+                    },
+                    items: <String>[
+                      '2021',
+                      '2020',
+                      '2019',
+                      '2018',
+                      '2017',
+                      '2016'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return const Text('Error');
+                }
               },
-              items: <String>['2021', '2020', '2019', '2018', '2017', '2016']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
           ),
           Expanded(
             flex: 1,
             child: TextField(
               onChanged: (value) {
-                context.read<LoadDataBloc>().add(
-                    LoadedData(season: dropdownValue, searchKeyword: value));
+                context.read<LoadDataBloc>().add(LoadedData(
+                    season: context.read<SeasonCubit>().state,
+                    searchKeyword: value));
               },
-              decoration: const InputDecoration(
-                  labelText: 'Search', suffixIcon: Icon(Icons.search)),
+              decoration: InputDecoration(
+                  labelText: tr('Search'),
+                  suffixIcon: const Icon(Icons.search)),
             ),
+          ),
+          Row(
+            children: [
+              Text(
+                tr('Rank'),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              const SizedBox(
+                width: 60,
+              ),
+              Text(
+                tr('Name'),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                width: 192,
+              ),
+              Text(
+                tr('Point'),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
           ),
           BlocBuilder<LoadDataBloc, LoadDataState>(
             builder: (context, state) {
@@ -97,8 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              detailsDataBloc.add(
-                                  LoadDetails(list: state.list, index: index));
+                              context.read<DetailsDataBloc>()
+                                ..add(LoadDetails(
+                                    list: state.list, index: index));
                               Navigator.pushNamed(context, '/details');
                             },
                             child: Container(

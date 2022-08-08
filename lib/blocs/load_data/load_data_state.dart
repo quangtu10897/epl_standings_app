@@ -11,9 +11,10 @@ class DataLoading extends LoadDataState {}
 
 class DataLoaded extends LoadDataState {
   final List<Standing> list;
-  const DataLoaded({this.list = const <Standing>[]});
+  final String season;
+  const DataLoaded({this.list = const <Standing>[], required this.season});
   @override
-  List<Object> get props => [list];
+  List<Object> get props => [list, season];
 }
 
 class DataError extends LoadDataState {
