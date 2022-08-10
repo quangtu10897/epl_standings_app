@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/bottom_navigator/bottom_navigator_bloc.dart';
 import 'homeScreen.dart';
 import 'language_screen.dart';
 
@@ -14,62 +13,64 @@ class NavigatorScreen extends StatefulWidget {
 }
 
 class _NavigatorScreenState extends State<NavigatorScreen> {
-  late BottomNavigatorBloc bottomNavigatorBloc;
-  final int _selectedIndex = 0;
+  int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    const Language()
+    const Language(),
   ];
-  @override
-  void initState() {
-    super.initState();
-    context.read<BottomNavigatorBloc>().add(OnTapEvent(index: _selectedIndex));
-  }
+  // @override
+  // // void initState() {
+  // //   super.initState();
+  // //   context.read<BottomNavigatorBloc>().add(OnTapEvent(index: _selectedIndex));
+  // // }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BottomNavigatorBloc, BottomNavigatorState>(
-      builder: (context, state) {
-        if (state is BottomNavigatorInitial) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state is BottomNavigatorLoaded) {
+    // return BlocBuilder<BottomNavigatorBloc, BottomNavigatorState>(
+    //   builder: (context, state) {
+    // if (state is BottomNavigatorInitial) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
+    //if (state is BottomNavigatorLoaded) {
           return Scaffold(
             body: Center(
-              child: _widgetOptions.elementAt(state.index),
+        child: Center(child: _widgetOptions.elementAt(_selectedIndex)),
             ),
             bottomNavigationBar: BottomNavigationBar(
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.home),
-                  label: tr('Home'),
+            label: tr(''),
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.settings),
-                  label: tr('Settings'),
+            label: tr(''),
                 ),
               ],
-              currentIndex: state.index,
+        currentIndex: _selectedIndex,
               selectedItemColor: Colors.amber[800],
               onTap: (int index) {
-                context
-                    .read<BottomNavigatorBloc>()
-                    .add(OnTapEvent(index: index));
+          // context
+          //     .read<BottomNavigatorBloc>()
+          //     .add(OnTapEvent(index: index));
+          setState(() {
+            _selectedIndex = index;
+          });
               },
             ),
           );
-        }
-        if (state is BottomNavigatorError) {
-          return Center(
-            child: Text(
-              state.message,
-              style: const TextStyle(color: Colors.blue),
-            ),
-          );
-        } else {
-          return const Text('error');
-        }
-      },
-    );
+    //}
+    // if (state is BottomNavigatorError) {
+    //   return Center(
+    //     child: Text(
+    //       state.message,
+    //       style: const TextStyle(color: Colors.blue),
+    //     ),
+    //   );
+    // } else {
+    //   return const Text('error');
+    // }
+    // },
+    //);
   }
 }

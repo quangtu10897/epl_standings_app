@@ -26,7 +26,7 @@ class _ChartsScreenState extends State<ChartsScreen> {
       body: BlocBuilder<ChartsBloc, ChartsState>(
         builder: (context, state) {
           if (state is ChartsData) {
-            print('${state.logo}');
+            
             return Container(
               color: Colors.white,
               child: Column(
@@ -112,39 +112,42 @@ class _ChartsScreenState extends State<ChartsScreen> {
                           })),
                     ),
                   ),
-                  Column(
-                    //mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Indicator(
-                        color: const Color(0xff0293ee),
-                        text: tr('Wins'),
-                        isSquare: true,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Indicator(
-                        color: const Color(0xfff8b250),
-                        text: tr('Ties'),
-                        isSquare: true,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Indicator(
-                        color: const Color(0xff845bef),
-                        text: tr('Loss'),
-                        isSquare: true,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      const SizedBox(
-                        height: 18,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                    child: Column(
+                      //mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Indicator(
+                          color: const Color(0xff0293ee),
+                          text: tr('Wins'),
+                          isSquare: true,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Indicator(
+                          color: const Color(0xfff8b250),
+                          text: tr('Ties'),
+                          isSquare: true,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Indicator(
+                          color: const Color(0xff845bef),
+                          text: tr('Loss'),
+                          isSquare: true,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const SizedBox(
+                          height: 18,
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(
                     width: 28,

@@ -9,28 +9,59 @@ class Language extends StatefulWidget {
 }
 
 class _LanguageState extends State<Language> {
+  String dropdownValue = 'English';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(tr('Language Settings')),
-        backgroundColor: Colors.blue[700],
-      ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-              onPressed: (() {
-                context.setLocale(const Locale('en'));
-              }),
-              child: Text(tr('English'))),
-          TextButton(
-              onPressed: (() {
-                context.setLocale(const Locale('vi'));
-              }),
-              child: Text(tr('Vietnammese')))
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text(tr('Language Settings')),
+          backgroundColor: Colors.blue[700],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+          child: Column(children: [
+            Text(
+              tr("LANGUAGE"),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey[700]),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  tr('Choose Language'),
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                DropdownButton(
+                  value: dropdownValue,
+                  items: <String>[
+                    'English',
+                    'Vietnammese',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      if (dropdownValue == 'English') {
+                        context.setLocale(const Locale('en'));
+                      } else if (dropdownValue == 'Vietnammese') {
+                        context.setLocale(const Locale('vi'));
+                      }
+                    });
+                  },
+                ),
+              ],
+            )
+          ]),
+        ));
   }
 }
