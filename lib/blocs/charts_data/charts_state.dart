@@ -10,17 +10,17 @@ abstract class ChartsState extends Equatable {
 class ChartsInitial extends ChartsState {}
 
 class ChartsData extends ChartsState {
-  final double win_rate;
-  final double loss_rate;
-  final double ties_rate;
+  final double winrate;
+  final double lossrate;
+  final double tiesrate;
   final String logo;
 
-  ChartsData({
-    required this.loss_rate,
-    required this.ties_rate,
-    required this.win_rate,
+  const ChartsData(
+      {required this.lossrate,
+      required this.tiesrate,
+      required this.winrate,
     required this.logo
   });
   @override
-  List<Object> get props => [win_rate, loss_rate, ties_rate];
+  List<Object> get props => [winrate, lossrate, tiesrate];
 }

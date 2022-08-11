@@ -1,5 +1,8 @@
+import 'package:bloc2/cubit/language_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Language extends StatefulWidget {
   const Language({Key? key}) : super(key: key);
@@ -10,6 +13,24 @@ class Language extends StatefulWidget {
 
 class _LanguageState extends State<Language> {
   String dropdownValue = 'English';
+  late SharedPreferences prefs;
+  final languageKey = 'language';
+  // getLanguage() async {
+  //   prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     final languageValue = prefs.getString(languageKey);
+  //     if (languageValue != null) {
+  //       dropdownValue = languageValue;
+  //     }
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getLanguage();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +59,7 @@ class _LanguageState extends State<Language> {
                   ),
                 ),
                 DropdownButton(
-                  value: dropdownValue,
+                  value: context.read<LanguageCubit>().state,
                   items: <String>[
                     'English',
                     'Vietnammese',
@@ -56,6 +77,8 @@ class _LanguageState extends State<Language> {
                       } else if (dropdownValue == 'Vietnammese') {
                         context.setLocale(const Locale('vi'));
                       }
+                      //prefs.setString(languageKey, dropdownValue);
+                      context.read<LanguageCubit>().emit(dropdownValue);
                     });
                   },
                 ),

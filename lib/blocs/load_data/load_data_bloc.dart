@@ -14,12 +14,14 @@ class LoadDataBloc extends Bloc<LoadDataEvent, LoadDataState> {
       (event, emit) async {
         
           List<Football> listFb = await dioClient.fetchData(event.season);
-          List<Standing> list = listFb[0].data.standings!;
+        //List<Standing> list = listFb[0].data.standings!;
           List<Standing> results = [];
           if (event.searchKeyword.isEmpty) {
-            results = list;
+          results = listFb[0].data.standings!;
           } else {
-            results = list
+          results = listFb[0]
+              .data
+              .standings!
                 .where((user) => user.team.name
                     .toLowerCase()
                     .contains(event.searchKeyword.toLowerCase()))

@@ -8,15 +8,19 @@ abstract class ChartsEvent extends Equatable {
 }
 
 class ParseData extends ChartsEvent {
-  final int wins;
-  final int loss;
-  final int ties;
-  final String logo;
-  const ParseData(
-      {required this.wins,
-      required this.loss,
-      required this.ties,
-      required this.logo});
+  // final int wins;
+  // final int loss;
+  // final int ties;
+  // final String logo;
+  // const ParseData(
+  //     {required this.wins,
+  //     required this.loss,
+  //     required this.ties,
+  //     required this.logo});
+  // @override
+  // List<Object> get props => [wins, loss, ties];
+  final Standing team;
+  const ParseData({required this.team});
   @override
-  List<Object> get props => [wins, loss, ties];
+  List<Object> get props => [team];
 }

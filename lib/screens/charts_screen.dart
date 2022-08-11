@@ -17,6 +17,7 @@ class _ChartsScreenState extends State<ChartsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
         title: Text(
           tr('Chart Screen'),
@@ -26,11 +27,26 @@ class _ChartsScreenState extends State<ChartsScreen> {
       body: BlocBuilder<ChartsBloc, ChartsState>(
         builder: (context, state) {
           if (state is ChartsData) {
-            
             return Container(
               color: Colors.white,
               child: Column(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.lightBlue[100]),
+                      child: Center(
+                          child: Text(
+                        tr('Stats Chart'),
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w600),
+                      )),
+                    ),
+                  ),
                   const SizedBox(
                     height: 50,
                   ),
@@ -40,13 +56,16 @@ class _ChartsScreenState extends State<ChartsScreen> {
                     radius: 40,
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   Text(
                     tr("Win-Loss Ratio"),
                     style: const TextStyle(fontSize: 20, color: Colors.black),
                   ),
-                  Expanded(
+                  Container(
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue[300],
                     child: PieChart(
                       PieChartData(
                           pieTouchData: PieTouchData(touchCallback:
@@ -74,9 +93,9 @@ class _ChartsScreenState extends State<ChartsScreen> {
                             switch (i) {
                               case 0:
                                 return PieChartSectionData(
-                                  color: const Color(0xff0293ee),
-                                  value: state.win_rate,
-                                  title: '${state.win_rate}%',
+                                  color: Colors.blue,
+                                  value: state.winrate,
+                                  title: '${state.winrate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -85,9 +104,9 @@ class _ChartsScreenState extends State<ChartsScreen> {
                                 );
                               case 1:
                                 return PieChartSectionData(
-                                  color: const Color(0xfff8b250),
-                                  value: state.ties_rate,
-                                  title: '${state.ties_rate}%',
+                                  color: Colors.purple,
+                                  value: state.tiesrate,
+                                  title: '${state.tiesrate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -96,9 +115,9 @@ class _ChartsScreenState extends State<ChartsScreen> {
                                 );
                               case 2:
                                 return PieChartSectionData(
-                                  color: const Color(0xff845bef),
-                                  value: state.loss_rate,
-                                  title: '${state.loss_rate}%',
+                                  color: Colors.red,
+                                  value: state.lossrate,
+                                  title: '${state.lossrate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -115,12 +134,12 @@ class _ChartsScreenState extends State<ChartsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                     child: Column(
-                      //mainAxisSize: MainAxisSize.max,
+                      
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Indicator(
-                          color: const Color(0xff0293ee),
+                          color: Colors.blue,
                           text: tr('Wins'),
                           isSquare: true,
                         ),
@@ -128,7 +147,7 @@ class _ChartsScreenState extends State<ChartsScreen> {
                           height: 4,
                         ),
                         Indicator(
-                          color: const Color(0xfff8b250),
+                          color: Colors.purple,
                           text: tr('Ties'),
                           isSquare: true,
                         ),
@@ -136,7 +155,7 @@ class _ChartsScreenState extends State<ChartsScreen> {
                           height: 4,
                         ),
                         Indicator(
-                          color: const Color(0xff845bef),
+                          color: Colors.red,
                           text: tr('Loss'),
                           isSquare: true,
                         ),

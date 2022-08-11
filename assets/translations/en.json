@@ -12,10 +12,16 @@
     "Vietnammese": "Vietnammese",
     "Chart Screen": "Chart Screen",
     "Win-Loss Ratio": "Win-Loss Ratio",
-    "Win": "Win",
+    "Wins": "Win",
     "Loss": "Loss",
     "Ties": "Ties",
     "Language Settings": "Language Settings",
     "LANGUAGE": "LANGUAGE",
-    "Choose Language": "Choose Language"
+    "Choose Language": "Choose Language",
+    "GamesPlay": "GamesPlay",
+    "Goal": "Goal",
+    "GoalConcede": "GoalConcede",
+    "Team Details": "Team Details",
+    "Advance Stats": "Advance Stats",
+    "Stats Chart": "Stats Chart"
 }

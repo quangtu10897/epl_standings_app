@@ -1,9 +1,11 @@
+
 import 'package:bloc2/blocs/load_data/load_data_bloc.dart';
 import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:bloc2/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,15 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //late LoadDataBloc loadDataBloc;
-  //late DetailsDataBloc detailsDataBloc;
-
   @override
   void initState() {
     super.initState();
-    context.read<LoadDataBloc>()
-      ..add(LoadedData(
-          season: context.read<SeasonCubit>().state, searchKeyword: ''));
+    context.read<LoadDataBloc>().add(LoadedData(
+        season: context.read<SeasonCubit>().state, searchKeyword: ''));
   }
 
   @override
@@ -59,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   flex: 1,
                   child: BlocBuilder<LoadDataBloc, LoadDataState>(
-                    
                     builder: (context, state) {
                       if (state is DataLoaded) {
                         return Container(
@@ -113,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 const SizedBox(
-                  width: 60,
+                  width: 39,
                 ),
                 Text(
                   tr('Name'),
@@ -121,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: 15, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
-                  width: 170,
+                  width: 185,
                 ),
                 Text(
                   tr('Point'),
@@ -135,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20,
           ),
           BlocBuilder<LoadDataBloc, LoadDataState>(
-            
             builder: (context, state) {
               if (state is DataLoading) {
                 return const Center(child: CircularProgressIndicator());

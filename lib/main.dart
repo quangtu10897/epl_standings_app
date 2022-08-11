@@ -1,5 +1,6 @@
 import 'package:bloc2/blocs/charts_data/charts_bloc.dart';
 import 'package:bloc2/blocs/load_data/load_data_bloc.dart';
+import 'package:bloc2/cubit/language_cubit.dart';
 import 'package:bloc2/screens/charts_screen.dart';
 import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ void main() async {
       supportedLocales: const [Locale("en"), Locale("vi")],
       path: 'assets/translations',
       fallbackLocale: const Locale("en"),
+      startLocale: const Locale('en'),
       child: const MyApp(),
     ),
   );
@@ -36,9 +38,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider<SeasonCubit>(create: (context) => SeasonCubit()),
         BlocProvider(create: (BuildContext context) => LoadDataBloc()),
-        
-        //BlocProvider(create: (BuildContext context) => BottomNavigatorBloc()),
         BlocProvider(create: (BuildContext context) => ChartsBloc()),
+        BlocProvider<LanguageCubit>(create: (context) => LanguageCubit())
         
       ],
       child: MaterialApp(
