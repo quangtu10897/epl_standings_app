@@ -15,21 +15,7 @@ class _LanguageState extends State<Language> {
   String dropdownValue = 'English';
   late SharedPreferences prefs;
   final languageKey = 'language';
-  // getLanguage() async {
-  //   prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     final languageValue = prefs.getString(languageKey);
-  //     if (languageValue != null) {
-  //       dropdownValue = languageValue;
-  //     }
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getLanguage();
-  // }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +63,7 @@ class _LanguageState extends State<Language> {
                       } else if (dropdownValue == 'Vietnammese') {
                         context.setLocale(const Locale('vi'));
                       }
-                      //prefs.setString(languageKey, dropdownValue);
+                      
                       context.read<LanguageCubit>().emit(dropdownValue);
                     });
                   },

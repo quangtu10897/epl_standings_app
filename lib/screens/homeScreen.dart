@@ -1,4 +1,4 @@
-
+// ignore_for_file: file_names
 import 'package:bloc2/blocs/load_data/load_data_bloc.dart';
 import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:bloc2/screens/details_screen.dart';
