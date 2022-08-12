@@ -17,7 +17,6 @@ class _ChartsScreenState extends State<ChartsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: Text(
           tr('Chart Screen'),
@@ -48,7 +47,7 @@ class _ChartsScreenState extends State<ChartsScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   CircleAvatar(
                     backgroundImage: NetworkImage(state.logo),
@@ -58,14 +57,26 @@ class _ChartsScreenState extends State<ChartsScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    tr("Win-Loss Ratio"),
-                    style: const TextStyle(fontSize: 20, color: Colors.black),
+                  Container(
+                    width: 200,
+                    height: 38,
+                    decoration: BoxDecoration(
+                        color: Colors.green[200],
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Center(
+                      child: Text(
+                        tr("Win-Loss Ratio"),
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Container(
                     height: 200,
                     width: 200,
-                    color: Colors.blue[300],
                     child: PieChart(
                       PieChartData(
                           pieTouchData: PieTouchData(touchCallback:
@@ -94,8 +105,8 @@ class _ChartsScreenState extends State<ChartsScreen> {
                               case 0:
                                 return PieChartSectionData(
                                   color: Colors.blue,
-                                  value: state.winrate,
-                                  title: '${state.winrate}%',
+                                  value: state.winRate,
+                                  title: '${state.winRate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -105,8 +116,8 @@ class _ChartsScreenState extends State<ChartsScreen> {
                               case 1:
                                 return PieChartSectionData(
                                   color: Colors.purple,
-                                  value: state.tiesrate,
-                                  title: '${state.tiesrate}%',
+                                  value: state.tiesRate,
+                                  title: '${state.tiesRate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -116,8 +127,8 @@ class _ChartsScreenState extends State<ChartsScreen> {
                               case 2:
                                 return PieChartSectionData(
                                   color: Colors.red,
-                                  value: state.lossrate,
-                                  title: '${state.lossrate}%',
+                                  value: state.lossRate,
+                                  title: '${state.lossRate}%',
                                   radius: radius,
                                   titleStyle: TextStyle(
                                       fontSize: fontSize,
@@ -134,7 +145,6 @@ class _ChartsScreenState extends State<ChartsScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                     child: Column(
-                      
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

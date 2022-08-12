@@ -5,10 +5,9 @@ import 'package:bloc2/screens/charts_screen.dart';
 import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'screens/homeScreen.dart';
+import 'screens/home_screen.dart';
 import 'screens/navigator_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,6 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [Locale("en"), Locale("vi")],
       path: 'assets/translations',
-      fallbackLocale: const Locale("en"),
       startLocale: const Locale('en'),
       child: const MyApp(),
     ),
@@ -40,7 +38,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (BuildContext context) => LoadDataBloc()),
         BlocProvider(create: (BuildContext context) => ChartsBloc()),
         BlocProvider<LanguageCubit>(create: (context) => LanguageCubit())
-        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

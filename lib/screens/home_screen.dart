@@ -1,11 +1,9 @@
-// ignore_for_file: file_names
 import 'package:bloc2/blocs/load_data/load_data_bloc.dart';
 import 'package:bloc2/cubit/season_cubit.dart';
 import 'package:bloc2/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,9 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           searchKeyword: value));
                     },
                     decoration: InputDecoration(
-                        // border: OutlineInputBorder(
-                        //   borderRadius: BorderRadius.circular(12),
-                        // ),
                         labelText: tr('Search'),
                         suffixIcon: const Icon(Icons.search)),
                   ),
@@ -71,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               elevation: 0,
                               style: const TextStyle(color: Colors.deepPurple),
                               onChanged: (String? newValue) {
+                                // ignore: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
                                 context.read<SeasonCubit>().emit(newValue!);
                                 context.read<LoadDataBloc>().add(LoadedData(
                                     season: newValue, searchKeyword: ''));
@@ -101,31 +97,47 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-            child: Row(
-              children: [
-                Text(
-                  tr('Rank'),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                const SizedBox(
-                  width: 39,
-                ),
-                Text(
-                  tr('Name'),
-                  style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  width: 185,
-                ),
-                Text(
-                  tr('Point'),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-              ],
+            padding: const EdgeInsets.fromLTRB(10, 26, 20, 0),
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.white12),
+              child: Row(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(color: Colors.white12),
+                    child: Text(
+                      tr('Rank'),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 48.5,
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(color: Colors.white12),
+                    width: 50,
+                    child: Text(
+                      tr('Name'),
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: const BoxDecoration(color: Colors.white12),
+                      child: Text(
+                        tr('Point'),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -161,16 +173,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 50,
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white12),
                               child: Row(
                                 children: [
-                                  Text('${state.list[index].stats![8].value}'),
+                                  Container(
+                                      width: 18,
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white12),
+                                      child: Center(
+                                        child: Text(
+                                            '${state.list[index].stats![8].value}'),
+                                      )),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   CircleAvatar(
-                                    backgroundColor: Colors.white,
+                                    backgroundColor: Colors.white12,
                                     backgroundImage: NetworkImage(
                                         state.list[index].team.logo[0].href),
                                   ),
@@ -179,9 +198,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Text(state.list[index].team.name),
                                   Expanded(
-                                    child: Text(
-                                      '${state.list[index].stats![6].value}',
-                                      textAlign: TextAlign.end,
+                                    child: Container(
+                                      color: Colors.white12,
+                                      child: Text(
+                                        '${state.list[index].stats![6].value}',
+                                        textAlign: TextAlign.end,
+                                      ),
                                     ),
                                   )
                                 ],

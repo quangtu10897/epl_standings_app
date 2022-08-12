@@ -12,22 +12,20 @@ class LoadDataBloc extends Bloc<LoadDataEvent, LoadDataState> {
   LoadDataBloc() : super(DataLoading()) {
     on<LoadedData>(
       (event, emit) async {
-        
         List<Football> listFb = await dioClient.fetchData(event.season);
-          List<Standing> results = [];
-          if (event.searchKeyword.isEmpty) {
+        List<Standing> results = [];
+        if (event.searchKeyword.isEmpty) {
           results = listFb[0].data.standings!;
-          } else {
+        } else {
           results = listFb[0]
               .data
               .standings!
-                .where((user) => user.team.name
-                    .toLowerCase()
-                    .contains(event.searchKeyword.toLowerCase()))
-                .toList();
-          }
-          emit(DataLoaded(list: results, season: event.season));
-        
+              .where((user) => user.team.name
+                  .toLowerCase()
+                  .contains(event.searchKeyword.toLowerCase()))
+              .toList();
+        }
+        emit(DataLoaded(list: results, season: event.season));
       },
     );
   }

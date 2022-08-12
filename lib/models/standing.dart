@@ -1,6 +1,5 @@
 import 'team.dart';
 
-
 class Standing {
   final Team team;
   final List<Stats>? stats;
@@ -17,6 +16,7 @@ class Standing {
     );
   }
 }
+
 class Stats {
   final String name;
   final dynamic value;
